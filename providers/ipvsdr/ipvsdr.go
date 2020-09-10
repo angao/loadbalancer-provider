@@ -138,19 +138,22 @@ func (p *Provider) OnUpdate(lb *lbapi.LoadBalancer) error {
 
 	log.Info("IPVS: OnUpdating")
 
-	tcpcm, err := p.storeLister.ConfigMap.ConfigMaps(lb.Namespace).Get(lb.Status.ProxyStatus.TCPConfigMap)
-	if err != nil {
-		log.Error("can not find tcp configmap for loadbalancer")
-		return err
-	}
+	var tcpPorts, udpPorts []string
+	if lb.Spec.Proxy.Type == lbapi.ProxyTypeNginx {
+		tcpcm, err := p.storeLister.ConfigMap.ConfigMaps(lb.Namespace).Get(lb.Status.ProxyStatus.TCPConfigMap)
+		if err != nil {
+			log.Error("can not find tcp configmap for loadbalancer")
+			return err
+		}
 
-	udpcm, err := p.storeLister.ConfigMap.ConfigMaps(lb.Namespace).Get(lb.Status.ProxyStatus.UDPConfigMap)
-	if err != nil {
-		log.Error("can not find udp configmap for loadbalancer")
-		return err
-	}
+		udpcm, err := p.storeLister.ConfigMap.ConfigMaps(lb.Namespace).Get(lb.Status.ProxyStatus.UDPConfigMap)
+		if err != nil {
+			log.Error("can not find udp configmap for loadbalancer")
+			return err
+		}
 
-	tcpPorts, udpPorts := core.GetExportedPorts(lb, tcpcm, udpcm)
+		tcpPorts, udpPorts = core.GetExportedPorts(lb, tcpcm, udpcm)
+	}
 
 	// get selected nodes' ip
 	if len(lb.Spec.Nodes.Names) == 0 {
@@ -187,7 +190,7 @@ func (p *Provider) OnUpdate(lb *lbapi.LoadBalancer) error {
 	}
 
 	httpPort := core.GetHTTPPort(lb)
-	err = p.keepalived.UpdateConfig(
+	err := p.keepalived.UpdateConfig(
 		[]virtualServer{svc},
 		resolvedNeighbors,
 		getNodePriority(p.nodeIP.String(), resolvedNodes),
@@ -207,12 +210,10 @@ func (p *Provider) OnUpdate(lb *lbapi.LoadBalancer) error {
 	}
 
 	// p.cfgMD5 = md5
-	err = p.keepalived.Reload()
-	if err != nil {
+	if err = p.keepalived.Reload(); err != nil {
 		log.Error("reload keepalived error", log.Fields{"err": err})
 		return err
 	}
-
 	return nil
 }
 
