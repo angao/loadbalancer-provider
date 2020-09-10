@@ -61,10 +61,6 @@
   name = "github.com/Azure/go-autorest"
   version = "v11.4.0"
 
-[[constraint]]
-  name = "github.com/zoumo/golib"
-  revision = "60b6ea38fe1ce5cd8b1942e1cd6767d6fc3384d9^"
-
 [[override]]
   name = "github.com/russross/blackfriday"
   version = "1.5.2"

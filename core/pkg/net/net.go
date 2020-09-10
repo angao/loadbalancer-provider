@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"regexp"
 
-	"github.com/zoumo/golib/netutil"
+	"github.com/caicloud/loadbalancer-provider/pkg/golib/netutil"
 )
 
 // Interface represents the local network interface

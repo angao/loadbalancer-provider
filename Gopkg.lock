@@ -446,16 +446,6 @@
   version = "v1.22.0"
 
 [[projects]]
-  digest = "1:b797a1bca3e634fc33cae07fca279111ba386f6c7b0b0724a7ea9c3e79ef2c52"
-  name = "github.com/zoumo/golib"
-  packages = [
-    "netutil",
-    "shell",
-  ]
-  pruneopts = "NUT"
-  revision = "60b6ea38fe1ce5cd8b1942e1cd6767d6fc3384d9^"
-
-[[projects]]
   branch = "master"
   digest = "1:df458e1c235788eba6db878775b18971fb591f95e8332ff8aaf11ae089240e25"
   name = "github.com/zoumo/logdog"
@@ -1011,8 +1001,6 @@
     "github.com/mdlayher/arp",
     "github.com/moby/moby/pkg/reexec",
     "github.com/stretchr/testify/assert",
-    "github.com/zoumo/golib/netutil",
-    "github.com/zoumo/golib/shell",
     "github.com/zoumo/logdog",
     "gopkg.in/urfave/cli.v1",
     "k8s.io/api/core/v1",

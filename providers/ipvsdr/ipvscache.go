@@ -5,8 +5,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/zoumo/golib/netutil"
-	"github.com/zoumo/golib/shell"
+	"github.com/caicloud/loadbalancer-provider/pkg/golib/netutil"
+	"github.com/caicloud/loadbalancer-provider/pkg/golib/shell"
 	log "github.com/zoumo/logdog"
 	"k8s.io/apimachinery/pkg/util/wait"
 )
