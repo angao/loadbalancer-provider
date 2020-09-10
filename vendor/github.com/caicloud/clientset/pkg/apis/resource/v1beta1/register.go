@@ -62,6 +62,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&ExtendedResourceList{},
 		&NodeClaim{},
 		&NodeClaimList{},
+		&ClusterResourceScale{},
+		&ClusterResourceScaleList{},
 	)
 
 	// Add common types

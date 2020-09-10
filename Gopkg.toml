@@ -41,9 +41,9 @@
   name = "k8s.io/client-go"
   version = "kubernetes-1.14.2"
 
-[[constraint]]
+[[override]]
   name = "github.com/caicloud/clientset"
-  branch = "release-1.14"
+  branch = "release-1.14-oem-sunny"
 
 [[override]]
   branch = "master"
